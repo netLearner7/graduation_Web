@@ -1,0 +1,101 @@
+<form
+  nz-form
+  [formGroup]="validateForm"
+  (submit)="modifyMeeting($event, validateForm.value)"
+>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7" nzRequired>会议名称</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzHasFeedback>
+      <input
+        nz-input
+        formControlName="meetingName"
+        placeholder="会议名称"
+        [(ngModel)]="meeting.meetingName"
+      />
+      <nz-form-explain
+        *ngIf="
+          validateForm.get('meetingName')?.dirty &&
+          validateForm.get('meetingName')?.errors
+        "
+      >
+        <ng-container
+          *ngIf="validateForm.get('meetingName')?.hasError('required')"
+        >
+          会议名称不能为空！
+        </ng-container>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7" nzRequired>会议地址</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzHasFeedback>
+      <input
+        nz-input
+        formControlName="address"
+        placeholder="会议地址"
+        [(ngModel)]="meeting.address"
+      />
+      <nz-form-explain
+        *ngIf="
+          validateForm.get('address').dirty &&
+          validateForm.get('address').errors
+        "
+      >
+        <ng-container *ngIf="validateForm.get('address').hasError('required')"
+          >地址不能为空</ng-container
+        >
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7" nzRequired>会议内容</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzHasFeedback>
+      <input
+        nz-input
+        formControlName="content"
+        plaecholder="会议内容"
+        [(ngModel)]="meeting.content"
+      />
+      <nz-form-explain
+        *ngIf="
+          validateForm.get('content').dirty &&
+          validateForm.get('content').errors
+        "
+      >
+        <ng-container *ngIf="validateForm.get('content').hasError('required')"
+          >请填写会议内容</ng-container
+        >
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7" nzRequired>日期</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <nz-date-picker
+        formControlName="datePicker"
+        [(ngModel)]="datetime.date"
+      ></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7" nzRequired>时间</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <nz-time-picker
+        formControlName="timePicker"
+        [(ngModel)]="datetime.time"
+      ></nz-time-picker>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control [nzOffset]="7" [nzSpan]="12">
+      <button nz-button nzType="primary" [disabled]="!validateForm.valid">
+        提交
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

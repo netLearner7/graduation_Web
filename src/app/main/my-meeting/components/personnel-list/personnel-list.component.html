@@ -1,0 +1,49 @@
+<nz-drawer
+  [nzClosable]="false"
+  [nzVisible]="isvisible"
+  nzPlacement="right"
+  nzTitle="人员列表"
+  (nzOnClose)="close()"
+  [nzWidth]="420"
+>
+  <button
+    class="button_margin"
+    nz-button
+    nzType="primary"
+    (click)="makeExecl()"
+    [disabled]="personList.length == 0"
+    [nzSize]="'small'"
+  >
+    导出名单
+  </button>
+  <nz-table #basicTable [nzData]="personList" [nzShowPagination]="false">
+    <thead>
+      <tr>
+        <th>姓名</th>
+        <th>签到</th>
+        <th>签到时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.userName }}</td>
+        <td>
+          <nz-tag
+            [nzColor]="'#87d068'"
+            *ngIf="data.user_MeetingStats == userMeetingStateEnum.SignIn"
+          >
+            已签到
+          </nz-tag>
+
+          <nz-tag
+            [nzColor]="'#2db7f5'"
+            *ngIf="data.user_MeetingStats == userMeetingStateEnum.NoSignIn"
+          >
+            未签到
+          </nz-tag>
+        </td>
+        <td>{{ data.checkInDate }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-drawer>

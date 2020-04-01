@@ -1,0 +1,31 @@
+<nz-layout class="full-screen">
+  <nz-sider nzCollapsible [(nzCollapsed)]="isRetraction" [nzWidth]="240">
+    <!-- 侧边栏 -->
+    <app-sider [isRetraction]="isRetraction"></app-sider>
+  </nz-sider>
+
+  <nz-layout>
+    <!-- -->
+    <nz-content class="container" [@transition]="transition(outlet)">
+      <!-- 面包屑部分 -->
+      <div class="container_head" [class.center]="!isRetraction">
+        <nz-breadcrumb [nzAutoGenerate]="true"></nz-breadcrumb>
+      </div>
+
+      <!-- 页面主体部分  -->
+      <div
+        class="container_box"
+        [class.center2]="!isRetraction"
+        [class.bg]="getbg(outlet)"
+        [class.pad]="!getbg(outlet)"
+      >
+        <router-outlet #outlet="outlet"></router-outlet>
+      </div>
+
+      <!-- 页脚部分 -->
+      <div class="container_footer" [class.center3]="!isRetraction">
+        Graduation Project ©2020 By 7
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

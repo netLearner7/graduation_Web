@@ -1,0 +1,41 @@
+<div class="header-wrapper">
+  <img src="./assets/img/default-head.jpg" />
+  <span *ngIf="!isRetraction" class="username-text">
+    {{ name }}
+  </span>
+
+  <!-- <div class="floating-btn header-btn" *ngIf="!isRetraction">
+    <i nz-icon nzType="setting" nzTheme="outline"></i>
+  </div> -->
+
+  <div
+    class="floating-btn header-btn"
+    *ngIf="!isRetraction"
+    (click)="SignOut()"
+  >
+    <span>
+      <i nz-icon nzType="poweroff" nzTheme="outline"></i>
+    </span>
+  </div>
+</div>
+
+<div class="list-wrapper">
+  <ul
+    nz-menu
+    [nzTheme]="'dark'"
+    [nzMode]="'inline'"
+    [nzInlineCollapsed]="isRetraction"
+  >
+    <li
+      nz-menu-item
+      *ngFor="let item of enumList; let i = index"
+      (click)="redriect(item.url)"
+    >
+      <div>
+        <i nz-icon [nzType]="item.icon" nzTheme="outline"></i>
+
+        <span>{{ item.text }}</span>
+      </div>
+    </li>
+  </ul>
+</div>

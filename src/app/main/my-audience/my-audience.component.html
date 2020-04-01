@@ -1,0 +1,99 @@
+<div style="padding: 24px; background-color: #ffffff;min-height: 600px;">
+  <nz-table #basicTable [nzData]="displayDataList">
+    <thead>
+      <tr>
+        <th class="a" nzCustomFilter>
+          会议名称
+          <!-- 筛选器部分 -->
+          <nz-dropdown
+            nzTrigger="click"
+            [nzClickHide]="false"
+            nzPlacement="bottomRight"
+            nzTableFilter
+            #dropdown
+          >
+            <i
+              nz-icon
+              nzType="search"
+              class="ant-table-filter-icon"
+              [class.ant-table-filter-open]="dropdown.nzVisible"
+              nz-dropdown
+            ></i>
+            <div class="search-box">
+              <input
+                type="text"
+                nz-input
+                placeholder="搜索会名"
+                [(ngModel)]="serchName"
+              />
+              <button
+                nz-button
+                nzSize="small"
+                nzType="primary"
+                class="search-button"
+                (click)="filter()"
+              >
+                搜索
+              </button>
+              <button nz-button nzSize="small" (click)="Reset()">重置</button>
+            </div>
+          </nz-dropdown>
+        </th>
+        <th>会议时间</th>
+        <th>会议地址</th>
+        <th
+          nzShowFilter
+          [nzFilters]="serchMeetingState"
+          (nzFilterChange)="filter($event)"
+        >
+          会议状态
+        </th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.meetingName }}</td>
+        <td>{{ data.dateTime }}</td>
+        <td>{{ data.address }}</td>
+        <td>
+          <nz-tag
+            [nzColor]="'gold'"
+            *ngIf="data.meetingState == meetingState.NotStarted"
+            >未开始</nz-tag
+          >
+          <nz-tag
+            [nzColor]="'green'"
+            *ngIf="data.meetingState == meetingState.CarryOn"
+            >进行中</nz-tag
+          >
+          <nz-tag
+            [nzColor]="'cyan'"
+            *ngIf="data.meetingState == meetingState.Complete"
+            >已完成</nz-tag
+          >
+          <nz-tag
+            [nzColor]="'red'"
+            *ngIf="data.meetingState == meetingState.Cancel"
+            >已取消</nz-tag
+          >
+        </td>
+        <td>
+          <a [routerLink]="['details', data.id]">详情</a>
+          <nz-divider
+            *ngIf="data.meetingState == meetingState.NotStarted"
+            nzType="vertical"
+          ></nz-divider>
+          <a
+            *ngIf="data.meetingState == meetingState.NotStarted"
+            nz-popconfirm
+            nzTitle="确定取消参加这个会议？"
+            nzPopconfirmPlacement="top"
+            (nzOnConfirm)="SignOutMeeting(data.id)"
+            >取消参会</a
+          >
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

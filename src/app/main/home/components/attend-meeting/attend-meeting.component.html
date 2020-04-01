@@ -1,0 +1,57 @@
+<nz-input-group
+  nzSearch
+  [nzAddOnAfter]="suffixIconButton"
+  nzAddOnBefore="会议报名"
+>
+  <input
+    type="text"
+    nz-input
+    placeholder="请输入邀请码"
+    [(ngModel)]="inviteCode"
+  />
+</nz-input-group>
+<ng-template #suffixIconButton>
+  <button
+    nz-button
+    nzType="primary"
+    nzSearch
+    (click)="queryMeeting()"
+    [disabled]="inviteCode == ''"
+  >
+    <i nz-icon nzType="login" nzTheme="outline"></i>
+  </button>
+</ng-template>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="您是要参加这场会议么？"
+  (nzOnCancel)="closeModal()"
+  (nzOnOk)="attend()"
+>
+  <div nz-row class="row_div">
+    <div nz-col nzSpan="4" nzOffset="4">
+      会议名称:
+    </div>
+    <div nz-col nzSpan="10">
+      {{ meeting.meetingName }}
+    </div>
+  </div>
+
+  <div nz-row class="row_div">
+    <div nz-col nzSpan="4" nzOffset="4">
+      会议地点:
+    </div>
+    <div nz-col nzSpan="10">
+      {{ meeting.address }}
+    </div>
+  </div>
+
+  <div nz-row class="row_div">
+    <div nz-col nzSpan="4" nzOffset="4">
+      会议时间:
+    </div>
+    <div nz-col nzSpan="10">
+      {{ meeting.dateTime }}
+    </div>
+  </div>
+</nz-modal>

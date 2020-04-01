@@ -1,0 +1,121 @@
+<div nz-row class="row_div">
+  <div nz-col nzSpan="2" nzOffset="6" class="left_div">
+    会议名称:
+  </div>
+  <div nz-col nzSpan="10">
+    {{ meeting.meetingName }}
+    <button
+      class="switchStateBtn"
+      nz-button
+      nzType="primary"
+      [nzSize]="'small'"
+      *ngIf="meeting.meetingState != 3 && meeting.meetingState != 4"
+      (click)="switchState()"
+    >
+      {{ switchStateBtn }}
+    </button>
+  </div>
+</div>
+
+<div nz-row class="row_div">
+  <div nz-col nzSpan="2" nzOffset="6" class="left_div">
+    会议地点:
+  </div>
+  <div nz-col nzSpan="10">
+    {{ meeting.address }}
+  </div>
+</div>
+
+<div nz-row class="row_div">
+  <div nz-col nzSpan="2" nzOffset="6" class="left_div">
+    会议时间:
+  </div>
+  <div nz-col nzSpan="10">
+    {{ meeting.dateTime }}
+  </div>
+</div>
+
+<div
+  nz-row
+  class="row_div"
+  *ngIf="meeting.meetingState != 3 && meeting.meetingState != 4"
+>
+  <div nz-col nzSpan="2" nzOffset="6" class="left_div">
+    会议邀请码:
+  </div>
+  <div nz-col nzSpan="16">
+    {{ meeting.inviteCode }}
+    <button
+      *ngIf="meeting.inviteCode == null"
+      [nzSize]="'small'"
+      nz-button
+      nzType="primary"
+      [nzLoading]="isLoading"
+      (click)="createInviteCode()"
+    >
+      生成邀请码
+    </button>
+
+    <button
+      *ngIf="meeting.inviteCode != null"
+      [nzSize]="'small'"
+      nz-button
+      nzType="primary"
+      nzShape="circle"
+      ngxClipboard
+      [cbContent]="meeting.inviteCode"
+      (cbOnSuccess)="copyInviteCode($event)"
+    >
+      <i nz-icon nzType="copy" nzTheme="outline"></i>
+    </button>
+  </div>
+</div>
+
+<div nz-row class="row_div">
+  <div nz-col nzSpan="2" nzOffset="6" class="left_div">
+    会议内容:
+  </div>
+  <div nz-col nzSpan="10" style="text-indent:2em">
+    {{ meeting.content }}
+  </div>
+</div>
+
+<div nz-row class="row_div">
+  <div nz-col nzSpan="2" nzOffset="6" class="left_div">
+    参会人员:
+  </div>
+  <div nz-col nzSpan="10">
+    <button
+      nz-button
+      nzType="primary"
+      (click)="visiblePerple()"
+      [nzSize]="'small'"
+    >
+      显示参会人员名单
+    </button>
+  </div>
+</div>
+
+<div
+  nz-row
+  class="row_div"
+  *ngIf="
+    meeting.meetingState != 1 &&
+    meeting.meetingState != 3 &&
+    meeting.meetingState != 4
+  "
+>
+  <div nz-col nzSpan="2" nzOffset="6" class="left_div">
+    签到二维码:
+  </div>
+  <div nz-col nzSpan="10">
+    <qr-code [value]="qrString" size="300" errorCorrectionLevel="M"></qr-code>
+  </div>
+</div>
+
+<app-personnel-list
+  #personList
+  [(isvisible)]="isvisible"
+  [meetingId]="meeting.id"
+  [meetingName]="meeting.meetingName"
+></app-personnel-list>

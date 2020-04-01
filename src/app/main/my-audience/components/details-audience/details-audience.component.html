@@ -1,0 +1,91 @@
+<div nz-row class="row_div">
+  <div nz-col nzSpan="2" nzOffset="6" class="left_div">
+    会议名称:
+  </div>
+  <div nz-col nzSpan="10">
+    {{ user_meeting.meetingName }}
+  </div>
+</div>
+
+<div nz-row class="row_div">
+  <div nz-col nzSpan="2" nzOffset="6" class="left_div">
+    会议发起人:
+  </div>
+  <div nz-col nzSpan="10">
+    {{ user_meeting.creatorName }}
+  </div>
+</div>
+
+<div nz-row class="row_div">
+  <div nz-col nzSpan="2" nzOffset="6" class="left_div">
+    会议地址:
+  </div>
+  <div nz-col nzSpan="10">
+    {{ user_meeting.address }}
+  </div>
+</div>
+
+<div nz-row class="row_div">
+  <div nz-col nzSpan="2" nzOffset="6" class="left_div">
+    会议时间:
+  </div>
+  <div nz-col nzSpan="10">
+    {{ user_meeting.dateTime }}
+  </div>
+</div>
+
+<div nz-row class="row_div">
+  <div nz-col nzSpan="2" nzOffset="6" class="left_div">
+    会议内容:
+  </div>
+  <div nz-col nzSpan="10">
+    {{ user_meeting.content }}
+  </div>
+</div>
+
+<div nz-row class="row_div">
+  <div nz-col nzSpan="2" nzOffset="6" class="left_div">
+    会议状态:
+  </div>
+
+  <div nz-col nzSpan="10">
+    <nz-tag
+      *ngIf="user_meeting.meetingState == meetingStats.NotStarted"
+      [nzColor]="'gold'"
+      >未开始</nz-tag
+    >
+    <nz-tag
+      *ngIf="user_meeting.meetingState == meetingStats.CarryOn"
+      [nzColor]="'green'"
+      >进行中</nz-tag
+    >
+    <nz-tag
+      *ngIf="user_meeting.meetingState == meetingStats.Complete"
+      [nzColor]="'cyan'"
+      >已完成</nz-tag
+    >
+    <nz-tag
+      *ngIf="user_meeting.meetingState == meetingStats.Cancel"
+      [nzColor]="'red'"
+      >已取消</nz-tag
+    >
+  </div>
+</div>
+
+<div nz-row class="row_div">
+  <div nz-col nzSpan="2" nzOffset="6" class="left_div">
+    签到状态:
+  </div>
+  <div nz-col nzSpan="10">
+    <nz-tag
+      *ngIf="user_meeting.user_MeetingStats == userMeetingStatsEnum.NoSignIn"
+      [nzColor]="'#2db7f5'"
+      >未签到</nz-tag
+    >
+    <nz-tag
+      *ngIf="user_meeting.user_MeetingStats == userMeetingStatsEnum.SignIn"
+      [nzColor]="'#87d068'"
+      >已签到</nz-tag
+    >
+  </div>
+</div>

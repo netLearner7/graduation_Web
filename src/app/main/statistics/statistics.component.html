@@ -1,0 +1,34 @@
+<div style="padding: 24px;background-color: #ffffff;min-height: 600px;">
+  <nz-row class="row">
+    <nz-col [nzSpan]="6">
+      <nz-statistic
+        class="statistic"
+        [nzValue]="monthMeeting | number"
+        [nzTitle]="'本月组织的会议'"
+      ></nz-statistic>
+    </nz-col>
+    <nz-col [nzSpan]="6">
+      <nz-statistic
+        class="statistic"
+        [nzValue]="monthUserMeeting | number"
+        [nzTitle]="'本月参加的会议'"
+      ></nz-statistic>
+    </nz-col>
+    <nz-col [nzSpan]="6">
+      <nz-statistic
+        class="statistic"
+        [nzValue]="allMeeting | number"
+        [nzTitle]="'共计组织的会议'"
+      ></nz-statistic>
+    </nz-col>
+    <nz-col [nzSpan]="6">
+      <nz-statistic
+        class="statistic"
+        [nzValue]="allUserMeeting | number"
+        [nzTitle]="'共计参与的会议'"
+      ></nz-statistic>
+    </nz-col>
+  </nz-row>
+
+  <div echarts [options]="chartOption" class="demo-chart"></div>
+</div>
